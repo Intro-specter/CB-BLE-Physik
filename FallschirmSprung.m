@@ -17,8 +17,11 @@ CW_FS = 1.35; % Widerstandszahl eines geoeffneten Fallschirmes
 RHO_L = 1.294; % Luftdichte; Aenderungen daran muessen nicht beruecksichtigt werden.
 A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
 A_FS = 9.3; % Flaeche eines geoeffneten Fallschirmes
-M = 100; % Masse des Menschen
+M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
+
 T_OEFFNUNG = 50; % Zeitpunkt an dem Springer den FS oeffnet; sollte nach Endgeschwindigkeit sein
+H_OEFFNUNG = 2000; % Hoehe an dem Springer den FS oeffnet;
+% einer oder beide dieser zwei machen die erste Abbruchbedingung aus;
 
 t(1) = 0;
 v(1) = 0;
@@ -26,7 +29,7 @@ s(1) = 0;
 a(1) = G;
 
 i = 1;
-while s(i) <= 2000
+while s(i) <= H_OEFFNUNG & t(i) <= T_OEFFNUNG
   t(i+1) = t(i) + DELTA_T;
   v(i+1) = v(i) + (G - (1/2*CW_MENSCH*RHO_L*A_MENSCH*(v(i))^2)/M) * DELTA_T;
   s(i+1) = s(i) + v(i) * DELTA_T;
