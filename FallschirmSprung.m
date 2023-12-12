@@ -57,18 +57,19 @@ while t(i) <= t(j) + 10
 end
 
 subplot(2,2,1);
-plot(t,a);
-grid on
-title("a-t-Diagramm", "FontWeight","bold");
-xlabel("Zeit in s")
-ylabel("Beschleunigung in m/s^2")
-
-subplot(2,2,2);
 plot(t,s);
 grid on
 title("s-t-Diagramm", "FontWeight","bold");
 xlabel("Zeit in s")
 ylabel("Strecke in m")
+axis("ij")
+
+subplot(2,2,2);
+plot(t,a);
+grid on
+title("a-t-Diagramm", "FontWeight","bold");
+xlabel("Zeit in s")
+ylabel("Beschleunigung in m/s^2")
 
 subplot(2,2,3);
 plot(t,v);
