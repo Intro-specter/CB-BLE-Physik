@@ -47,7 +47,11 @@ j = i
 while t(i) <= t(j) + 10
   t(i+1) = t(i) + DELTA_T;
   v(i+1) = v(i) - v(i)*0.1;
-  s(i+1) = ANFANGSHOEHE;
+  if (s(i) == ANFANGSHOEHE)
+    s(i+1) = ANFANGSHOEHE;
+  else
+    s(i+1) = s(i) + v(i) * DELTA_T;
+  endif
   a(i+1) = (v(i+1)-v(i))/(2*DELTA_T);
   i = i + 1;
 end
