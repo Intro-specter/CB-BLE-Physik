@@ -16,12 +16,12 @@ CW_MENSCH = 0.78; % Widerstandszahl eines Menschen
 CW_FS = 1.35; % Widerstandszahl eines geoeffneten Fallschirmes
 RHO_L = 1.294; % Luftdichte; Aenderungen daran muessen nicht beruecksichtigt werden.
 A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
-A_FS = 9.3; % Flaeche eines geoeffneten Fallschirmes
+A_FS = 18.58; % Flaeche eines geoeffneten Fallschirmes
 M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
 
-T_OEFFNUNG = 50; % Zeitpunkt an dem Springer den FS oeffnet; sollte nach Endgeschwindigkeit sein
 H_OEFFNUNG = 2000; % Hoehe an dem Springer den FS oeffnet;
-% einer oder beide dieser zwei machen die erste Abbruchbedingung aus;
+
+T_OEFFNUNG = 15 % Wie lange in s es braucht den Fallschirm zu oeffnen
 
 t(1) = 0;
 v(1) = 0;
@@ -29,12 +29,28 @@ s(1) = 0;
 a(1) = G;
 
 i = 1;
-while s(i) <= H_OEFFNUNG & t(i) <= T_OEFFNUNG
+while s(i) <= H_OEFFNUNG
   t(i+1) = t(i) + DELTA_T;
   v(i+1) = v(i) + (G - (1/2*CW_MENSCH*RHO_L*A_MENSCH*(v(i))^2)/M) * DELTA_T;
   s(i+1) = s(i) + v(i) * DELTA_T;
   a(i+1) = G - (1/2*CW_MENSCH*RHO_L*A_MENSCH*(v(i+1))^2)/M;
   i = i + 1;
+end
+
+% Miesch: Fliessender Uebergang zwischen cw und Flaeche Mensch zu deren des Fallschirmes waehrend 10s;
+CW_TEMP = 0
+A_TEMP = 0
+k = 1/T_OEFFNUNG
+k_count = 1
+while s(i) <= ANFANGSHOEHE - 10 & k_count < T_OEFFNUNG
+  CW_TEMP = CW_MENSCH+((CW_FS-CW_MENSCH) * k * k_count);
+  A_TEMP = A_MENSCH+((A_FS-A_MENSCH) * k * k_count);
+  t(i+1) = t(i) + DELTA_T;
+  v(i+1) = v(i) + (G - (1/2*CW_TEMP*RHO_L*A_TEMP*(v(i))^2)/M) * DELTA_T;
+  s(i+1) = s(i) + v(i) * DELTA_T;
+  a(i+1) = G - (1/2*CW_TEMP*RHO_L*A_TEMP*(v(i+1))^2)/M;
+  i = i + 1;
+  k_count = k_count + DELTA_T;
 end
 
 while s(i) <= ANFANGSHOEHE - 10
@@ -46,6 +62,8 @@ while s(i) <= ANFANGSHOEHE - 10
 end
 
 % Miesch: warten bis 10m ueber Boden, gleichmässig beschleunigte Bewegung aus v und t herleiten, irgendwie
+% Miesch: Geschwindigkeit war vor der Landung viel zu hoch
+% Miesch: Landung zu abrupt
 j = i
 while t(i) <= t(j) + 10
   t(i+1) = t(i) + DELTA_T;
