@@ -32,7 +32,7 @@ i_o = 1
 while s_o(i_o) <= ANFANGSHOEHE
   t_o(i_o+1) = t_o(i_o) + DELTA_T;
   s_o(i_o+1) = s_o(i_o) + v_o(i_o)*DELTA_T;
-  v_o(i_o+1) = t_o(i_o)*G;
+  v_o(i_o+1) = t_o(i_o+1)*G;
   i_o = i_o + 1;
 end
 

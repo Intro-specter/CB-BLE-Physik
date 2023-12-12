@@ -13,7 +13,7 @@ i = 1
 while s(i) <= ANFANGSHOEHE
   t(i+1) = t(i) + DELTA_T;
   s(i+1) = s(i) + v(i)*DELTA_T;
-  v(i+1) = t(i)*G;
+  v(i+1) = t(i+1)*G;
   i = i + 1;
 end
 
