@@ -13,10 +13,10 @@ G = 9.81;
 DELTA_T = 0.05; % Zeitintervall
 ANFANGSHOEHE = 3500; % Anfangshoehe
 CW_MENSCH = 0.78; % Widerstandszahl eines Menschen
-CW_FS = 1.35; % Widerstandszahl eines geoeffneten Fallschirmes
+CW_FS = 1.33; % Widerstandszahl eines geoeffneten Fallschirmes
 RHO_L = 1.294; % Luftdichte; Aenderungen daran muessen nicht beruecksichtigt werden.
 A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
-A_FS = 18.58; % Flaeche eines geoeffneten Fallschirmes
+A_FS = 22; % Flaeche eines geoeffneten Fallschirmes
 M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
 
 H_OEFFNUNG = 2000; % Hoehe an dem Springer den FS oeffnet;
@@ -28,6 +28,8 @@ v(1) = 0;
 s(1) = 0;
 a(1) = G;
 
+% --------------------Fall bis zur oeffnung des Fallschirmes-----------
+
 i = 1;
 while s(i) <= H_OEFFNUNG
   t(i+1) = t(i) + DELTA_T;
@@ -37,11 +39,16 @@ while s(i) <= H_OEFFNUNG
   i = i + 1;
 end
 
-% Miesch: Fliessender Uebergang zwischen cw und Flaeche Mensch zu deren des Fallschirmes waehrend 10s;
-CW_TEMP = 0
-A_TEMP = 0
-k = 1/T_OEFFNUNG
-k_count = 1
+v_vor_fs = v(i);
+t_vor_fs = t(i);
+
+% --------------------Oeffnung des Fallschirmes--------------
+
+% Fliessender Uebergang zwischen cw und Flaeche Mensch zu deren des Fallschirmes waehrend 10s;
+CW_TEMP = 0;
+A_TEMP = 0;
+k = 1/T_OEFFNUNG;
+k_count = 1;
 while s(i) <= ANFANGSHOEHE - 10 & k_count < T_OEFFNUNG
   CW_TEMP = CW_MENSCH+((CW_FS-CW_MENSCH) * k * k_count);
   A_TEMP = A_MENSCH+((A_FS-A_MENSCH) * k * k_count);
@@ -53,6 +60,8 @@ while s(i) <= ANFANGSHOEHE - 10 & k_count < T_OEFFNUNG
   k_count = k_count + DELTA_T;
 end
 
+% ------------------Völlig geoeffneter Fallschirm----------
+
 while s(i) <= ANFANGSHOEHE - 10
   t(i+1) = t(i) + DELTA_T;
   v(i+1) = v(i) + (G - (1/2*CW_FS*RHO_L*A_FS*(v(i))^2)/M) * DELTA_T;
@@ -61,9 +70,12 @@ while s(i) <= ANFANGSHOEHE - 10
   i = i + 1;
 end
 
-% Miesch: warten bis 10m ueber Boden, gleichmässig beschleunigte Bewegung aus v und t herleiten, irgendwie
-% Miesch: Geschwindigkeit war vor der Landung viel zu hoch
-% Miesch: Landung zu abrupt
+v_nach_fs = v(i);
+t_nach_fs = t(i);
+
+% -----------------Landephase-------------------------
+
+% warten bis 10m ueber Boden, gleichmässig beschleunigte Bewegung aus v und t herleiten, irgendwie
 j = i
 while t(i) <= t(j) + 10
   t(i+1) = t(i) + DELTA_T;
@@ -76,6 +88,20 @@ while t(i) <= t(j) + 10
   a(i+1) = (v(i+1)-v(i))/(2*DELTA_T);
   i = i + 1;
 end
+
+% ----------------Ausgabewerte Anzeigen---------------------
+
+% Ich habe keine Ahnung warum T_OEFFNUNG & j auch geprintet werden ¯\_(ツ)_/¯
+fprintf("\nEndgeschwindigkeit Simulation vor dem oeffnen des Fallschirmes: %6.2f m/s, %6.2f km/h\n", v_vor_fs, (v_vor_fs*3.6));
+fprintf("Endgeschwindigkeit Simulation nach dem oeffnen des Fallschirmes: %6.2f m/s, %6.2f km/h\n", v_nach_fs, (v_nach_fs*3.6));
+fprintf("Simulation Zeit vor oeffnen des Fallschirmes: %6.2f s\n", t_vor_fs);
+fprintf("Simulation Zeit vor der Landung: %6.2f s\n", t_nach_fs);
+fprintf("Fallzeit der Simulation: %6.2f s\n", t(i));
+fprintf("Fallzeit der Messdaten: %6.2f s\n", tm(l));
+fprintf("Anzahl Schritte zur Abbruchbedingung der Simulation: %1.f\n", i);
+fprintf("Anzahl Schritte der Messdaten: %1.f\n", l);
+
+% --------------Diagramme auf 2x2 Matrix-------------------
 
 subplot(2,2,1);
 plot(t,s);
@@ -99,7 +125,7 @@ title("v-t-Diagramm", "FontWeight","bold");
 xlabel("Zeit in s")
 ylabel("Geschwindigkeit in m/s")
 
-% Plot, Messdaten/
+% Plot der Messdaten/
 subplot(2,2,4);
 plot(tm,am);
 grid on
