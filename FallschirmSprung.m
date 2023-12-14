@@ -16,12 +16,12 @@ DELTA_T = 0.05; % Zeitintervall
 ANFANGSHOEHE = 3500; % Anfangshoehe
 CW_MENSCH = 0.78; % Widerstandszahl eines Menschen
 CW_FS = 1.33; % Widerstandszahl eines geoeffneten Fallschirmes
-RHO_L = 1.294; % Luftdichte; Aenderungen daran muessen nicht beruecksichtigt werden.
+RHO_L = 1.13; % Luftdichte; Aenderungen daran muessen nicht beruecksichtigt werden.
 A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
 A_FS = 35; % Flaeche eines geoeffneten Fallschirmes
 M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
 
-H_OEFFNUNG = 2600; % Strecke nach dem Springer den FS oeffnet;
+H_OEFFNUNG = 2500; % Strecke nach dem Springer den FS oeffnet;
 
 T_OEFFNUNG = 25 % Wie lange in s es braucht den Fallschirm zu oeffnen
 
@@ -104,7 +104,7 @@ fprintf("Anzahl Schritte zur Abbruchbedingung der Simulation: %1.f\n", i);
 fprintf("Anzahl Schritte der Messdaten: %1.f\n", l);
 
 % -----------------------Diagramme auf 2x2 Matrix-------------------------------
-
+%{
 subplot(2,2,1); % Oben links
 plot(t,s);
 grid on
@@ -135,3 +135,13 @@ title('a-t-Diagramm - Messdaten','FontWeight','bold');
 xlabel('Zeit in s');
 ylabel('Beschleunigung in m/s ^2');
 % /Messdaten
+%}
+
+subplot(1,1,1)
+plot(tm,am,"r",t,a,"b");
+grid on
+title('a-t-Diagramm - Messdaten','FontWeight','bold');
+xlabel('Zeit in s');
+ylabel('Beschleunigung in m/s ^2');
+legend("Messung","Simulation","location","northwestoutside");
+
