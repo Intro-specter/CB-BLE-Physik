@@ -21,7 +21,7 @@ A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
 A_FS = 22; % Flaeche eines geoeffneten Fallschirmes
 M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
 
-H_OEFFNUNG = 2000; % Hoehe an dem Springer den FS oeffnet;
+H_OEFFNUNG = 2500; % Hoehe an dem Springer den FS oeffnet;
 
 T_OEFFNUNG = 15 % Wie lange in s es braucht den Fallschirm zu oeffnen
 
@@ -87,7 +87,7 @@ while t(i) <= t(j) + 10
   else
     s(i+1) = s(i) + v(i) * DELTA_T;
   endif
-  a(i+1) = (v(i+1)-v(i))/(2*DELTA_T);
+  a(i+1) = (v(i+1)-v(i))/(DELTA_T);
   i = i + 1;
 end
 
