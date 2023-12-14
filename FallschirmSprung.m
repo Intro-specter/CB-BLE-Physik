@@ -104,7 +104,7 @@ fprintf("Anzahl Schritte zur Abbruchbedingung der Simulation: %1.f\n", i);
 fprintf("Anzahl Schritte der Messdaten: %1.f\n", l);
 
 % -----------------------Diagramme auf 2x2 Matrix-------------------------------
-%{
+
 subplot(2,2,1); % Oben links
 plot(t,s);
 grid on
@@ -135,8 +135,9 @@ title('a-t-Diagramm - Messdaten','FontWeight','bold');
 xlabel('Zeit in s');
 ylabel('Beschleunigung in m/s ^2');
 % /Messdaten
-%}
 
+% Direkter Vergleich zwischen Messdaten und Simulation
+%{
 subplot(1,1,1)
 plot(tm,am,"r",t,a,"b");
 grid on
@@ -144,4 +145,4 @@ title('a-t-Diagramm - Messdaten','FontWeight','bold');
 xlabel('Zeit in s');
 ylabel('Beschleunigung in m/s ^2');
 legend("Messung","Simulation","location","northwestoutside");
-
+%}
