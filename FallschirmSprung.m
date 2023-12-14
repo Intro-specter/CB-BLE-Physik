@@ -18,12 +18,12 @@ CW_MENSCH = 0.78; % Widerstandszahl eines Menschen
 CW_FS = 1.33; % Widerstandszahl eines geoeffneten Fallschirmes
 RHO_L = 1.294; % Luftdichte; Aenderungen daran muessen nicht beruecksichtigt werden.
 A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
-A_FS = 25; % Flaeche eines geoeffneten Fallschirmes
+A_FS = 35; % Flaeche eines geoeffneten Fallschirmes
 M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
 
-H_OEFFNUNG = 2500; % Strecke nach dem Springer den FS oeffnet;
+H_OEFFNUNG = 2600; % Strecke nach dem Springer den FS oeffnet;
 
-T_OEFFNUNG = 15 % Wie lange in s es braucht den Fallschirm zu oeffnen
+T_OEFFNUNG = 25 % Wie lange in s es braucht den Fallschirm zu oeffnen
 
 t(1) = 0;
 v(1) = 0;
@@ -51,7 +51,7 @@ CW_TEMP = 0;
 A_TEMP = 0;
 k = 1/T_OEFFNUNG;
 k_count = 1;
-while s(i) <= ANFANGSHOEHE - 10 & k_count < T_OEFFNUNG
+while s(i) <= ANFANGSHOEHE - 10 & k_count <= T_OEFFNUNG
   CW_TEMP = CW_MENSCH+((CW_FS-CW_MENSCH) * k * k_count);
   A_TEMP = A_MENSCH+((A_FS-A_MENSCH) * k * k_count);
   t(i+1) = t(i) + DELTA_T;
@@ -111,7 +111,7 @@ grid on
 title("s-t-Diagramm", "FontWeight","bold");
 xlabel("Zeit in s")
 ylabel("Strecke in m")
-axis("ij") % dreht die x-Achse um damit die Bewegung nach unten gezeigt wird
+% axis("ij") % dreht die x-Achse um damit die Bewegung nach unten gezeigt wird
 
 subplot(2,2,2); % Oben rechts
 plot(t,a);
