@@ -18,7 +18,7 @@ CW_MENSCH = 0.78; % Widerstandszahl eines Menschen
 CW_FS = 1.33; % Widerstandszahl eines geoeffneten Fallschirmes
 RHO_L = 1.294; % Luftdichte; Aenderungen daran muessen nicht beruecksichtigt werden.
 A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
-A_FS = 22; % Flaeche eines geoeffneten Fallschirmes
+A_FS = 25; % Flaeche eines geoeffneten Fallschirmes
 M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
 
 H_OEFFNUNG = 2500; % Hoehe an dem Springer den FS oeffnet;
