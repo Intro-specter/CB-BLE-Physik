@@ -81,21 +81,21 @@ t_nach_fs = t(i);
 j = i
 while t(i) <= t(j) + 10
   t(i+1) = t(i) + DELTA_T;
-  v(i+1) = v(i) - v(i)*0.1;
+  v(i+1) = v(i) - v(i)*0.025;
   if (s(i) == ANFANGSHOEHE)
     s(i+1) = ANFANGSHOEHE;
   else
     s(i+1) = s(i) + v(i) * DELTA_T;
   endif
-  a(i+1) = (v(i+1)-v(i))/(DELTA_T);
+  a(i+1) = (v(i+1)-v(i))/(2*DELTA_T);
   i = i + 1;
 end
 
 % ------------------------Ausgabewerte Anzeigen---------------------------------
 
 % Octave scheint aus unbekannten Gründen auch noch T_OEFFNUNG & j auszugeben, sollte kein Problem sein
-fprintf("\nEndgeschwindigkeit Simulation vor dem oeffnen des Fallschirmes: %6.2f m/s, %6.2f km/h\n", v_vor_fs, (v_vor_fs*3.6));
-fprintf("Endgeschwindigkeit Simulation nach dem oeffnen des Fallschirmes: %6.2f m/s, %6.2f km/h\n", v_nach_fs, (v_nach_fs*3.6));
+fprintf("\nv_End Simulation vor dem oeffnen des Fallschirmes: %6.2f m/s, %6.2f km/h\n", v_vor_fs, v_vor_fs*3.6);
+fprintf("v_End Simulation nach dem oeffnen des Fallschirmes: %6.2f m/s, %6.2f km/h\n", v_nach_fs, v_nach_fs*3.6);
 fprintf("Simulation Zeit vor oeffnen des Fallschirmes: %6.2f s\n", t_vor_fs);
 fprintf("Simulation Zeit vor der Landung: %6.2f s\n", t_nach_fs);
 fprintf("Fallzeit der Simulation: %6.2f s\n", t(i));
