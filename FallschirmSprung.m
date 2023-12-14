@@ -21,7 +21,7 @@ A_MENSCH = 0.9; % Flaeche eines Menschen in Fallrichtung
 A_FS = 22; % Flaeche eines geoeffneten Fallschirmes
 M = 100; % Masse des Menschen (Masse vom Zeugs wie dem Fallschirm mit einbezogen)
 
-H_OEFFNUNG = 2500; % Hoehe an dem Springer den FS oeffnet;
+H_OEFFNUNG = 2500; % Strecke nach dem Springer den FS oeffnet;
 
 T_OEFFNUNG = 15 % Wie lange in s es braucht den Fallschirm zu oeffnen
 
