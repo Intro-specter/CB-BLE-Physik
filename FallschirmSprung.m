@@ -8,7 +8,7 @@ for l = 1:1950
  end
 % /Messdaten
 
-G = 9.81; % Erdbeschleunigung; Für uns konstant;
+G = 9.81; % Erdbeschleunigung; F?r uns konstant;
 
 % Hoffentlich liegen Unterschiede zu Messdaten an diesen Eingabewerten
 % Muss weiterhin mit anderen Werten getestet werden
@@ -47,22 +47,22 @@ t_vor_fs = t(i);
 % --------------------Oeffnung des Fallschirmes---------------------------------
 
 % Fliessender Uebergang zwischen cw und Flaeche Mensch zu deren des Fallschirmes
-CW_TEMP = 0;
-A_TEMP = 0;
+cw_temp = 0;
+a_temp = 0;
 k = 1/T_OEFFNUNG;
 k_count = 1;
 while s(i) <= ANFANGSHOEHE - 10 & k_count <= T_OEFFNUNG
-  CW_TEMP = CW_MENSCH+((CW_FS-CW_MENSCH) * k * k_count);
-  A_TEMP = A_MENSCH+((A_FS-A_MENSCH) * k * k_count);
+  cw_temp = CW_MENSCH+((CW_FS-CW_MENSCH) * k * k_count);
+  a_temp = A_MENSCH+((A_FS-A_MENSCH) * k * k_count);
   t(i+1) = t(i) + DELTA_T;
-  v(i+1) = v(i) + (G - (1/2*CW_TEMP*RHO_L*A_TEMP*(v(i))^2)/M) * DELTA_T;
+  v(i+1) = v(i) + (G - (1/2*cw_temp*RHO_L*a_temp*(v(i))^2)/M) * DELTA_T;
   s(i+1) = s(i) + v(i) * DELTA_T;
-  a(i+1) = G - (1/2*CW_TEMP*RHO_L*A_TEMP*(v(i+1))^2)/M;
+  a(i+1) = G - (1/2*cw_temp*RHO_L*a_temp*(v(i+1))^2)/M;
   i = i + 1;
   k_count = k_count + DELTA_T;
 end
 
-% ------------------Völlig geoeffneter Fallschirm-------------------------------
+% ------------------Voellig geoeffneter Fallschirm-------------------------------
 
 while s(i) <= ANFANGSHOEHE - 10
   t(i+1) = t(i) + DELTA_T;
@@ -77,7 +77,7 @@ t_nach_fs = t(i);
 
 % ----------------------Landephase----------------------------------------------
 
-% warten bis 10m ueber Boden, dann gleichmässig beschleunigte Bewegung
+% warten bis 10m ueber Boden, dann gleichm?ssig beschleunigte Bewegung
 j = i;
 while t(i) <= t(j) + 10
   t(i+1) = t(i) + DELTA_T;
@@ -130,9 +130,9 @@ ylabel("Geschwindigkeit in m/s")
 subplot(2,2,4); % Unten rechts
 plot(tm,am);
 grid on
-title('a-t-Diagramm - Messdaten','FontWeight','bold');
-xlabel('Zeit in s');
-ylabel('Beschleunigung in m/s ^2');
+title("a-t-Diagramm - Messdaten","FontWeight","bold");
+xlabel("Zeit in s");
+ylabel("Beschleunigung in m/s ^2");
 % /Messdaten
 
 % Direkter Vergleich zwischen Messdaten und Simulation
