@@ -48,16 +48,16 @@ t_vor_fs = t(i);
 
 % Fliessender Uebergang zwischen cw und Flaeche Mensch zu deren des Fallschirmes
 cw_temp = 0;
-a_temp = 0;
+A_temp = 0;
 k = 1/T_OEFFNUNG;
 k_count = 1;
 while s(i) <= ANFANGSHOEHE - 10 & k_count <= T_OEFFNUNG
   cw_temp = CW_MENSCH+((CW_FS-CW_MENSCH) * k * k_count);
-  a_temp = A_MENSCH+((A_FS-A_MENSCH) * k * k_count);
+  A_temp = A_MENSCH+((A_FS-A_MENSCH) * k * k_count);
   t(i+1) = t(i) + DELTA_T;
-  v(i+1) = v(i) + (G - (1/2*cw_temp*RHO_L*a_temp*(v(i))^2)/M) * DELTA_T;
+  v(i+1) = v(i) + (G - (1/2*cw_temp*RHO_L*A_temp*(v(i))^2)/M) * DELTA_T;
   s(i+1) = s(i) + v(i) * DELTA_T;
-  a(i+1) = G - (1/2*cw_temp*RHO_L*a_temp*(v(i+1))^2)/M;
+  a(i+1) = G - (1/2*cw_temp*RHO_L*A_temp*(v(i+1))^2)/M;
   i = i + 1;
   k_count = k_count + DELTA_T;
 end
