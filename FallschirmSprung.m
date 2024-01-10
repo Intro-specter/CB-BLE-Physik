@@ -143,7 +143,7 @@ ylabel("Beschleunigung in m/s ^2");
 % Dies haben wir zur kontrolle implementiert, aber auskommentiert.
 %{
 subplot(1,1,1)
-plot(tm,am,"r",t,a,"b");
+plot(tm,am,"r",t,a,"b"); % 2 verschiedene Graphen, mit verschiedenen Farben
 grid on
 title('a-t-Diagramm - Messdaten','FontWeight','bold');
 xlabel('Zeit in s');
